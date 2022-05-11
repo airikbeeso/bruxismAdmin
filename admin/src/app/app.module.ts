@@ -12,10 +12,22 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { SigninComponent } from './auth/signin/signin.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { AuthService } from "./shared/services/auth.service";
+
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent
+    SigninComponent,
+    DashboardComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +39,14 @@ import { SigninComponent } from './auth/signin/signin.component';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
   ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  },],
+  providers: [
+    AuthService,
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
