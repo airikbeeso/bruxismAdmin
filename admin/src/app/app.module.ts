@@ -23,6 +23,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     provideMessaging(() => getMessaging()),
+    FontAwesomeModule,
   ],
   providers: [
     AuthService,

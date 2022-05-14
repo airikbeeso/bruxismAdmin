@@ -36,16 +36,16 @@ export class AuthService {
 
   // Sign in with email/password
   SignIn(email: string, password: string) {
-
-    // console.log("Sign In", email, password);
+    console.log("email", email);
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log("RESI", result.user);
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
+
         this.SetUserData(result.user);
+
       })
       .catch((error) => {
         window.alert(error.message);
@@ -130,7 +130,7 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
+      emailVerified: user.emailVerified
     };
     return userRef.set(userData, {
       merge: true,
