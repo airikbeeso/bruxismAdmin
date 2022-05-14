@@ -13,8 +13,8 @@ export class AuthGuard implements CanActivate {
     const isAuth = null === localStorage.getItem("bruxism_user") ? false : true;
     if(!isAuth)
     {
-      this._router.navigate(['auth/signin']);
-      
+      this._router.navigate(['sign-in']);
+
       return false;
     }
     return true

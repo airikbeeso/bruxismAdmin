@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bruxism-87ee3": {
+      "hosting": {
+        "admin": [
+          "bruxism-87ee3"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bruxism-87ee3"
+  }
+}
