@@ -1,1 +1,23 @@
-<p>client-alerts works!</p>
+<div class="list mt-3 pt-2">
+    <div *ngFor="let item of Alerts" class="main mt-2 mb-2">
+        <div>
+            client: {{item.name}} {{item.email}} --- {{item.userId}}<br/>
+            time: {{item.init | timezone | date:'medium'}}
+        </div>
+        <div>
+
+            <table  class="table table-striped">
+                <thead>
+                    <th>Question</th><th>Answer</th>
+                </thead>
+                <tbody>
+                    <tr  *ngFor="let item2 of item.listQuestions">
+                        <td>{{item2.question}}</td>
+                        <td>{{item2.answer === '' ? 'no answer' : item2.answer}}</td>
+                    </tr>
+                </tbody>
+            </table>
+     
+        </div>
+    </div>
+</div>

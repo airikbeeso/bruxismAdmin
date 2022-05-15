@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -36,6 +36,7 @@ import { StudentListComponent } from './components/dashboard/student-list/studen
 import { NgxPaginationModule } from 'ngx-pagination';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 import { ClientAlertsComponent } from './components/dashboard/client-alerts/client-alerts.component';
+import { TimezonePipe } from './helpers/timezone.pipe';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ClientAlertsComponent } from './components/dashboard/client-alerts/clie
     AddStudentComponent,
     EditStudentComponent,
     StudentListComponent,
-    ClientAlertsComponent
+    ClientAlertsComponent,
+    TimezonePipe
   ],
   imports: [
     BrowserModule,
@@ -77,6 +79,9 @@ import { ClientAlertsComponent } from './components/dashboard/client-alerts/clie
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
+    },
+    {
+      provide: DatePipe
     },
     ScreenTrackingService,UserTrackingService
 

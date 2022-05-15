@@ -7,6 +7,8 @@ export interface Alert {
     im: number;
     init: number;
     is: number;
+    email: string;
+    name: string;
     listQuesions:[{
         answer:string;
         form: string;

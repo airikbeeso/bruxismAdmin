@@ -1,0 +1,16 @@
+.list {
+    .main {
+        &:nth-child(even) {
+            background-color: aliceblue;
+        }
+        .question{
+            background-color: skyblue;
+            color: black;
+            
+        }
+        .answer {
+            background-color: gray;
+            color: white;
+        }
+    }
+}
