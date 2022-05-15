@@ -10,9 +10,16 @@ import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 export class DashboardComponent implements OnInit {
   faUser = faUser;
   faSignOutAlt = faSignOutAlt;
-  constructor(public authService: AuthService) {}
+  page = 0;
+
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+    
+  }
+  setPage(np: number) {
+    this.page = np;
+
   }
 
 }

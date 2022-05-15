@@ -18,17 +18,24 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthService } from "./shared/services/auth.service";
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatButtonModule } from '@angular/material/button';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddStudentComponent } from './components/dashboard/add-student/add-student.component';
+import { EditStudentComponent } from './components/dashboard/edit-student/edit-student.component';
+import { StudentListComponent } from './components/dashboard/student-list/student-list.component';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
+import { ClientAlertsComponent } from './components/dashboard/client-alerts/client-alerts.component';
 
 
 @NgModule({
@@ -38,14 +45,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AddStudentComponent,
+    EditStudentComponent,
+    StudentListComponent,
+    ClientAlertsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
-    ToastrModule,
+    ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -57,13 +69,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     provideFirestore(() => getFirestore()),
     provideMessaging(() => getMessaging()),
     FontAwesomeModule,
+    MatButtonModule,
+    provideAnalytics(() => getAnalytics())
   ],
   providers: [
     AuthService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
-    }
+    },
+    ScreenTrackingService,UserTrackingService
 
   ],
   bootstrap: [AppComponent]

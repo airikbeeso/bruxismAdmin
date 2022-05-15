@@ -21,7 +21,7 @@
             <a class="nav-link" (click)="authService.SignOut()">
 
               <fa-icon [icon]="faSignOutAlt"></fa-icon>
-             Log out
+              Log out
 
 
             </a>
@@ -39,13 +39,42 @@
         <div class="row" *ngIf="authService.userData as user">
           <div class="col-md-12">
             <div class="media">
-              <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
-                alt="{{user.displayName}}">
+              <img class="align-self-start mr-5 img-thumbnail rounded-circle"
+                src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
               <div class="media-body">
                 <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
                 <p>User ID: <strong>{{user.uid}}</strong></p>
                 <p>Email: <strong>{{user.email}}</strong></p>
                 <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                <p>
+                
+                </p>
+                <p>
+                  
+                </p>
+                <div class="d-flex justify-content-start command">
+                    <button mat-raised-button color="basic" (click)="setPage(1)">Register</button>
+                    <button mat-raised-button color="accent" (click)="setPage(3)">View</button>
+                </div>
+                <div class="justify-content-between">
+                  <div>
+                    <app-add-student *ngIf="page === 1"></app-add-student>
+                  </div>
+
+                  <div>
+                    <app-edit-student *ngIf="page === 2"></app-edit-student>
+                  </div>
+
+                  <div>
+                    <app-student-list *ngIf="page === 3"></app-student-list>
+                  </div>
+                  <div>
+                    <app-client-alerts></app-client-alerts>
+                  </div>
+                </div>
+
+
+
               </div>
             </div>
           </div>
