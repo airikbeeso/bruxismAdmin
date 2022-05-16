@@ -9,14 +9,15 @@ export interface Alert {
     is: number;
     email: string;
     name: string;
-    listQuesions:[{
-        answer:string;
+    userId: string;
+    listQuesions: [{
+        answer: string;
         form: string;
         id: number;
         question: string;
         option: [
             string
         ],
-        
+
     }]
 }

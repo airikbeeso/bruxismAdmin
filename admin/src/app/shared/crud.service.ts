@@ -62,7 +62,8 @@ export class CrudService {
   GetClientAlerts()
   {
     
-    return this.afs.collection("alerts").snapshotChanges();
+    return this.afs.collection("alerts", 
+    ref=>ref.orderBy('init') && ref.orderBy('userId')).snapshotChanges();
       
   }
 }

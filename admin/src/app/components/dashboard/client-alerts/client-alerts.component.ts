@@ -38,6 +38,8 @@ export class ClientAlertsComponent implements OnInit {
         return data;
       });
       console.log("alert", this.Alerts);
+
+      
   
     });
   }

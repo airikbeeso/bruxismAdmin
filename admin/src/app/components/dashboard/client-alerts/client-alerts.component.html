@@ -1,8 +1,8 @@
 <div class="list mt-3 pt-2">
     <div *ngFor="let item of Alerts" class="main mt-2 mb-2">
         <div>
-            client: {{item.name}} {{item.email}} --- {{item.userId}}<br/>
-            time: {{item.init | timezone | date:'medium'}}
+            client: {{item.name}} {{item.email}}<br/>
+            time: {{item.timestamp | timezone | date:'medium'}}
         </div>
         <div>
 
