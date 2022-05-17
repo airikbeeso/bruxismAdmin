@@ -1,23 +1,36 @@
 <div class="list mt-3 pt-2">
-    <div *ngFor="let item of Alerts" class="main mt-2 mb-2">
-        <div>
-            client: {{item.name}} {{item.email}}<br/>
-            time: {{item.timestamp | timezone | date:'medium'}}
-        </div>
-        <div>
+    <div *ngFor="let item of users" class="main mt-2 mb-2">
 
-            <table  class="table table-striped">
-                <thead>
-                    <th>Question</th><th>Answer</th>
-                </thead>
-                <tbody>
-                    <tr  *ngFor="let item2 of item.listQuestions">
-                        <td>{{item2.question}}</td>
-                        <td>{{item2.answer === '' ? 'no answer' : item2.answer}}</td>
-                    </tr>
-                </tbody>
-            </table>
-     
-        </div>
+
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4>client: {{item.email}} </h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <h5>{{item.name}}</h5>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div *ngFor="let item2 of item.data">
+                    <h5>{{item2.timestamp | timezone | date:'medium'}}</h5>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Question</th>
+                            <th>Answer</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item3 of item2.listQuestions">
+                                <td>{{item3.question}}</td>
+                                <td>{{item3.answer === '' ? 'no answer' : item3.answer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
     </div>
 </div>

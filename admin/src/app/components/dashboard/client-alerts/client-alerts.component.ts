@@ -16,6 +16,7 @@ export class ClientAlertsComponent implements OnInit {
   noData: boolean = false;
   preLoader: boolean = true;
   Alerts: any = [];
+  users: any  = [];
   constructor(
     public crudApi: CrudService,
     public toastr: ToastrService
@@ -38,6 +39,20 @@ export class ClientAlertsComponent implements OnInit {
         return data;
       });
       console.log("alert", this.Alerts);
+      const key = 'userId';
+      const arrayUniqueByKey = [...new  Map(this.Alerts.map(item=>[item[key],item])).values()];
+      console.log("unique", arrayUniqueByKey);
+
+      this.users = arrayUniqueByKey.map((m:any)=>{
+        return {
+          "name" : m.name,
+          "userId": m.userId,
+          "email": m.email,
+          "data": this.Alerts.filter((f:any)=>f.userId === m.userId)        
+        };
+      });
+
+      console.log("users", this.users);
 
       
   

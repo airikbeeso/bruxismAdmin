@@ -25,6 +25,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -72,6 +73,7 @@ import { TimezonePipe } from './helpers/timezone.pipe';
     provideMessaging(() => getMessaging()),
     FontAwesomeModule,
     MatButtonModule,
+    MatExpansionModule,
     provideAnalytics(() => getAnalytics())
   ],
   providers: [
