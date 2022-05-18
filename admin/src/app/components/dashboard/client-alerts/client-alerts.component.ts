@@ -16,7 +16,7 @@ export class ClientAlertsComponent implements OnInit {
   noData: boolean = false;
   preLoader: boolean = true;
   Alerts: any = [];
-  users: any  = [];
+  users: any = [];
   constructor(
     public crudApi: CrudService,
     public toastr: ToastrService
@@ -35,20 +35,20 @@ export class ClientAlertsComponent implements OnInit {
           id: e.payload.doc.id,
           ...(e.payload.doc.data() as Alert),
         }
-     
+
         return data;
       });
       console.log("alert", this.Alerts);
       const key = 'userId';
-      const arrayUniqueByKey = [...new  Map(this.Alerts.map(item=>[item[key],item])).values()];
+      const arrayUniqueByKey = [...new Map(this.Alerts.map(item => [item[key], item])).values()];
       console.log("unique", arrayUniqueByKey);
 
-      this.users = arrayUniqueByKey.map((m:any)=>{
+      this.users = arrayUniqueByKey.map((m: any) => {
         return {
-          "name" : m.name,
+          "name": m.name,
           "userId": m.userId,
           "email": m.email,
-          "data": this.Alerts.filter((f:any)=>f.userId === m.userId)        
+          "data": this.Alerts.filter((f: any) => f.userId === m.userId)
         };
       });
 
@@ -56,25 +56,60 @@ export class ClientAlertsComponent implements OnInit {
       let totQuestions = this.Alerts.length;
 
       let lsQuestions = [];
-      this.Alerts.forEach((dt:any, idx:any)=>{
-        dt.listQuestions.forEach((dt2:any, idx2:any)=>{
+      this.Alerts.forEach((dt: any, idx: any) => {
+        dt.listQuestions.forEach((dt2: any, idx2: any) => {
 
-          if(lsQuestions.length === 0)
-          {
+          if (lsQuestions.length === 0) {
+            if (Array.isArray(dt2.answer)) {
+              let lsAnswers = [];
+              dt2.answer.forEach((dtAnswer: any, idxAnswer: any) => {
+                lsAnswers.push({
+                  "answer" : dtAnswer,
+                  "count" : 1
+                });
 
-            lsQuestions.push({
+              });
 
-            });
+            }
+            else {
+              dt2.option.forEach((dt: any, idx3: any) => {
+
+
+              });
+
+              lsQuestions.push({
+                "question": dt2.question,
+                "answer": dt2.answer,
+                "count": 1,
+                "options": ''
+              });
+            }
+
+
           }
-            dt2.question;
+          else {
+            let single = lsQuestions.find((f: any) => f.question === dt2.question);
+            if (undefined !== single) {
+              single.count += 1;
+            }
+            else {
+              lsQuestions.push({
+                "question": dt2.question,
+                "answer": dt2.answer,
+                "count": 1
+              });
+            }
+          }
 
         });
 
       });
 
+      console.log("q and a", lsQuestions);
 
-      
-  
+
+
+
     });
   }
 
