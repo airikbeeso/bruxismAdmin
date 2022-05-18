@@ -27,6 +27,10 @@ export class ClientAlertsComponent implements OnInit {
     // console.log("Data", data);
   }
 
+  checkAnswer(options: any) {
+
+  }
+
   loadAlerts() {
     this.crudApi.GetClientAlerts().subscribe((res) => {
       this.Alerts = res.map((e) => {
@@ -60,43 +64,71 @@ export class ClientAlertsComponent implements OnInit {
         dt.listQuestions.forEach((dt2: any, idx2: any) => {
 
           if (lsQuestions.length === 0) {
+            let lsAnswers = [];
             if (Array.isArray(dt2.answer)) {
-              let lsAnswers = [];
+
               dt2.answer.forEach((dtAnswer: any, idxAnswer: any) => {
                 lsAnswers.push({
-                  "answer" : dtAnswer,
-                  "count" : 1
+                  "answer": dtAnswer,
+                  "count": 1
                 });
 
               });
 
             }
             else {
-              dt2.option.forEach((dt: any, idx3: any) => {
-
+              dt2.option.forEach((opt: any, idx3: any) => {
+                lsAnswers.push({
+                  "answer": opt,
+                  "count": opt === dt2.answer ? 1 : 0
+                });
 
               });
 
-              lsQuestions.push({
-                "question": dt2.question,
-                "answer": dt2.answer,
-                "count": 1,
-                "options": ''
-              });
             }
 
 
+            lsQuestions.push({
+              "question": dt2.question,
+              "answer": dt2.answer,
+              "count": 1,
+              "options": lsAnswers
+            });
           }
           else {
             let single = lsQuestions.find((f: any) => f.question === dt2.question);
             if (undefined !== single) {
               single.count += 1;
+              if (Array.isArray(single.answer)) {
+                single.answer.forEach((a: any, i: any) => {
+                  let s = single.options.find((f: any) => f.answer === a);
+                  if (undefined !== s) {
+                    s.count += 1;
+                  }
+                });
+
+              }
+              else {
+                let s = single.options.find((f: any) => f.answer === single.answer);
+                if (undefined !== s) {
+                  s.count += 1;
+
+                }
+              }
             }
             else {
+              let lsAnswers = [];
+              dt2.option.forEach((o: any, i: any) => {
+                lsAnswers.push({
+                  "answer": o,
+                  "count": 1
+                })
+              });
               lsQuestions.push({
                 "question": dt2.question,
                 "answer": dt2.answer,
-                "count": 1
+                "count": 1,
+                "options": lsAnswers
               });
             }
           }
