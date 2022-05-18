@@ -63,7 +63,7 @@ export class CrudService {
   {
     
     return this.afs.collection("alerts", 
-    ref=>ref.orderBy('userId') && ref.orderBy('timestamp')).snapshotChanges();
+    ref=>ref.orderBy('timestamp')).snapshotChanges();
       
   }
 }
