@@ -53,6 +53,25 @@ export class ClientAlertsComponent implements OnInit {
       });
 
       console.log("users", this.users);
+      let totQuestions = this.Alerts.length;
+
+      let lsQuestions = [];
+      this.Alerts.forEach((dt:any, idx:any)=>{
+        dt.listQuestions.forEach((dt2:any, idx2:any)=>{
+
+          if(lsQuestions.length === 0)
+          {
+
+            lsQuestions.push({
+
+            });
+          }
+            dt2.question;
+
+        });
+
+      });
+
 
       
   
