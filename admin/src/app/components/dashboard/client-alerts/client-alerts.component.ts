@@ -63,12 +63,16 @@ export class ClientAlertsComponent implements OnInit {
       let lsQuestions = [];
       this.Alerts.forEach((dt: any, idx: any) => {
         dt.listQuestions.forEach((dt2: any, idx2: any) => {
+          console.log("ddddd", dt2?.answer?.includes('['));
 
           if (lsQuestions.length === 0) {
             let lsAnswers = [];
-            if (Array.isArray(dt2.answer)) {
 
-              dt2.answer.forEach((dtAnswer: any, idxAnswer: any) => {
+            if (dt2?.answer?.includes('[')) {
+
+              console.log("this is array", dt2.answer);
+
+              JSON.parse(dt2.answer).forEach((dtAnswer: any, idxAnswer: any) => {
                 lsAnswers.push({
                   "answer": dtAnswer,
                   "count": 1
@@ -100,8 +104,17 @@ export class ClientAlertsComponent implements OnInit {
             let single = lsQuestions.find((f: any) => f.question === dt2.question);
             if (undefined !== single) {
               single.count += 1;
-              if (Array.isArray(single.answer)) {
-                single.answer.forEach((a: any, i: any) => {
+              if (
+
+                single.answer.includes('[')
+
+
+              ) {
+                console.log("array ansewer", single.answer);
+                let arrA = single.answer.replace("[", "").replace("]", "");
+                let arrB = arrA.split(',');
+
+                arrB.forEach((a: any, i: any) => {
                   let s = single.options.find((f: any) => f.answer === a);
                   if (undefined !== s) {
                     s.count += 1;
