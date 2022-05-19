@@ -38,6 +38,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 import { ClientAlertsComponent } from './components/dashboard/client-alerts/client-alerts.component';
 import { TimezonePipe } from './helpers/timezone.pipe';
+import { ChartsComponent } from './components/dashboard/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { TimezonePipe } from './helpers/timezone.pipe';
     EditStudentComponent,
     StudentListComponent,
     ClientAlertsComponent,
-    TimezonePipe
+    TimezonePipe,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { TimezonePipe } from './helpers/timezone.pipe';
     BrowserAnimationsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
+    NgxChartsModule,
     ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
