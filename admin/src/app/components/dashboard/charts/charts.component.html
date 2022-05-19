@@ -1,16 +1,20 @@
-<ngx-charts-bar-horizontal
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="single"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)">
-</ngx-charts-bar-horizontal>
+<div style="clear: both; display: grid; grid-template-rows: 1fr 1fr; align-items: flex-start;" class="mt-3 mb-3">
+
+  <div class="title">
+    {{title}}
+  </div>
+  <div class="subtitle">
+    Total users: {{data.count}}
+  </div>
+
+
+</div>
+<div>
+
+  <ngx-charts-bar-horizontal [view]="view" [scheme]="colorScheme" [results]="chartData" [gradient]="gradient"
+    [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)"
+    (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+  </ngx-charts-bar-horizontal>
+
+</div>

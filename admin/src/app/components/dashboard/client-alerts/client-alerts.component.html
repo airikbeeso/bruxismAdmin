@@ -33,4 +33,12 @@
 
         </mat-accordion>
     </div>
+
+
+</div>
+<div *ngFor="let item of chartData" class="m-5" style="clear:both; display: grid;">
+    <br/>
+    <app-charts [data]="item" class="m5"></app-charts>
+
+    <hr/><br/>
 </div>

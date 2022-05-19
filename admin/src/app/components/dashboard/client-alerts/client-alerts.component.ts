@@ -17,6 +17,7 @@ export class ClientAlertsComponent implements OnInit {
   preLoader: boolean = true;
   Alerts: any = [];
   users: any = [];
+  chartData: any;
   constructor(
     public crudApi: CrudService,
     public toastr: ToastrService
@@ -138,11 +139,11 @@ export class ClientAlertsComponent implements OnInit {
       });
 
       console.log("q and a", lsQuestions);
-
-
-
-
+      this.chartData = lsQuestions;
     });
   }
+
+
+
 
 }
