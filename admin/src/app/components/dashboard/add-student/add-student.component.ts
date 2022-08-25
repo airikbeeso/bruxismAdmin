@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '@app/shared/crud.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-student',
@@ -8,10 +8,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add-student.component.scss']
 })
 export class AddStudentComponent implements OnInit {
-  public studentForm: FormGroup;
+  public studentForm: UntypedFormGroup;
   constructor(
     public crudApi: CrudService,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public toastr: ToastrService
   ) {}
   ngOnInit() {

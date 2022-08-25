@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CrudService } from '@app/shared/crud.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -10,10 +10,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edit-student.component.scss'],
 })
 export class EditStudentComponent implements OnInit {
-  editForm: FormGroup;
+  editForm: UntypedFormGroup;
   constructor(
     private crudApi: CrudService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private location: Location,
     private actRoute: ActivatedRoute,
     private router: Router,
