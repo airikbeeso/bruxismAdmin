@@ -660,7 +660,29 @@ body .table thead th {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
+nav {
+  background: url('assets/images/bg5.jpg');
+  a.navbar-brand.col-sm-3.col-md-2.mr-0 {
+    height: 65px;
+
+    .brand-logo {
+      max-width: 80px;
+      max-height: 80px;
+      padding: 2px;
+      position: absolute;
+      top: -2px;
+      left: -2px;
+    }
+
+  }
+}
