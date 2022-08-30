@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -26,6 +26,10 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -35,7 +39,7 @@ import { EditStudentComponent } from './components/dashboard/edit-student/edit-s
 import { StudentListComponent } from './components/dashboard/student-list/student-list.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
+import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { ClientAlertsComponent } from './components/dashboard/client-alerts/client-alerts.component';
 import { TimezonePipe } from './helpers/timezone.pipe';
 import { ChartsComponent } from './components/dashboard/charts/charts.component';
@@ -64,6 +68,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     NgxPaginationModule,
     ReactiveFormsModule,
     NgxChartsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule, MatRippleModule,
     ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -81,15 +88,16 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     provideAnalytics(() => getAnalytics())
   ],
   providers: [
-    AuthService,
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: PathLocationStrategy, // HashLocationStrategy PathLocationStrategy
     },
+    AuthService,
+
     {
       provide: DatePipe
     },
-    ScreenTrackingService,UserTrackingService
+    ScreenTrackingService, UserTrackingService
 
   ],
   bootstrap: [AppComponent]

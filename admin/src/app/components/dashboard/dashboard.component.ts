@@ -21,5 +21,8 @@ export class DashboardComponent implements OnInit {
     this.page = np;
 
   }
+  async dataExport() {
+
+  }
 
 }

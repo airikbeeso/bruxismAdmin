@@ -3,6 +3,7 @@ import { CrudService } from '@app/shared/crud.service';
 import { Student } from '@app/shared/student';
 import { Alert } from '@app/shared/alert';
 import { ToastrService } from 'ngx-toastr';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-client-alerts',
@@ -18,6 +19,10 @@ export class ClientAlertsComponent implements OnInit {
   Alerts: any = [];
   users: any = [];
   chartData: any;
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
   constructor(
     public crudApi: CrudService,
     public toastr: ToastrService
@@ -28,6 +33,15 @@ export class ClientAlertsComponent implements OnInit {
     // console.log("Data", data);
   }
 
+  exportData() {
+
+    let val  = this.range.value;
+    let start = new Date(val.start);
+    let end = new Date(val.end);
+
+  
+    console.log(start.valueOf(), end.valueOf());
+  }
   checkAnswer(options: any) {
 
   }
@@ -61,16 +75,18 @@ export class ClientAlertsComponent implements OnInit {
       let totQuestions = this.Alerts.length;
 
       let lsQuestions = [];
-      this.Alerts.forEach((dt: any, idx: any) => {
-        dt.listQuestions.forEach((dt2: any, idx2: any) => {
-          console.log("ddddd", dt2?.answer?.includes('['));
+      // this.Alerts.forEach((dt: any, idx: any) => {
+      for (let dt of this.Alerts) {
+        for (let dt2 of dt.listQuestions) {
+          // dt.listQuestions.forEach((dt2: any, idx2: any) => {
+          // console.log("ddddd", dt2?.answer?.includes('['));
 
           if (lsQuestions.length === 0) {
             let lsAnswers = [];
 
             if (dt2?.answer?.includes('[')) {
 
-              console.log("this is array", dt2.answer);
+              // console.log("this is array", dt2.answer);
 
               JSON.parse(dt2.answer).forEach((dtAnswer: any, idxAnswer: any) => {
                 lsAnswers.push({
@@ -82,13 +98,14 @@ export class ClientAlertsComponent implements OnInit {
 
             }
             else {
-              dt2.option.forEach((opt: any, idx3: any) => {
+              // console.log("location 1", dt2.option);
+              for (let opt of dt2?.option) {
                 lsAnswers.push({
                   "answer": opt,
                   "count": opt === dt2.answer ? 1 : 0
                 });
 
-              });
+              }
 
             }
 
@@ -110,7 +127,7 @@ export class ClientAlertsComponent implements OnInit {
 
 
               ) {
-                console.log("array ansewer", single.answer);
+                // console.log("array ansewer", single.answer);
                 let arrA = single.answer.replace("[", "").replace("]", "");
                 let arrB = arrA.split(',');
 
@@ -132,12 +149,17 @@ export class ClientAlertsComponent implements OnInit {
             }
             else {
               let lsAnswers = [];
-              dt2.option.forEach((o: any, i: any) => {
+              // console.log(dt2, typeof dt2.option);
+              if (typeof dt2.option === 'string') { 
+
+              for (let opt of dt2?.option) {
+                // console.log(`type ${opt}`, typeof opt);
                 lsAnswers.push({
-                  "answer": o,
+                  "answer": opt,
                   "count": 1
-                })
-              });
+                });
+              }
+
               lsQuestions.push({
                 "question": dt2.question,
                 "answer": dt2.answer,
@@ -146,15 +168,16 @@ export class ClientAlertsComponent implements OnInit {
               });
             }
           }
-
-        });
-
-      });
+        }
+      }
+      // });
+    }
+      // });
 
       console.log("q and a", lsQuestions);
-      this.chartData = lsQuestions;
-    });
-  }
+    this.chartData = lsQuestions;
+  });
+}
 
 
 
