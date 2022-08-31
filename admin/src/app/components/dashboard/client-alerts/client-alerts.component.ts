@@ -4,6 +4,7 @@ import { Student } from '@app/shared/student';
 import { Alert } from '@app/shared/alert';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Utils } from '@app/helpers/utils';
 
 @Component({
   selector: 'app-client-alerts',
@@ -35,12 +36,72 @@ export class ClientAlertsComponent implements OnInit {
 
   exportData() {
 
-    let val  = this.range.value;
+    let val = this.range.value;
     let start = new Date(val.start);
     let end = new Date(val.end);
 
-  
     console.log(start.valueOf(), end.valueOf());
+    if (0 > start.valueOf() && 0 > end.valueOf()) {
+      ///limit by date range
+      let user = this.users[0];
+      const dt = user.data[0];
+      console.log("here data", dt);
+      const de = new Date(dt.init);
+      console.log(`de`, new Utils().convertedDate(new Date(de), 'dd-MMM-yyyy h:mm:ss a'));
+    }
+    else {
+      ///not limit
+      let collectData = [];
+
+      let user = this.users[0];
+      console.log("here data example", user.data[0]);
+
+      let curretDate = 0;
+      let data = [];
+      for (const d of user.data) {
+        if (0 === data.length) {
+          data.push(d)
+        }
+        else {
+          let found = data.find((f: any) => f.init === d.init);
+          if (undefined === found) {
+            data.push(d);
+          }
+        }
+      }
+
+      let nine = [];
+      let twelve = [];
+      let fifteen = [];
+      let eighteen = [];
+      let twentyone = [];
+
+
+      // console.log("last data", data);
+      let dayNumber = 1;
+      const first = new Date(data[0].init);;
+      curretDate = first.getDate();
+      for (let dt of data) {
+
+        const de = new Date(dt.init);
+        if (curretDate !== de.getDate()) {
+          dayNumber += 1;
+        }
+        dt.dayNumber = dayNumber;
+        dt.nine = {};
+        dt.twelve = {};
+        dt.fifteen = {};
+        dt.eighteen = {};
+        dt.twentyone = {};
+        
+        
+        console.log(`de ${dt.init}`, new Utils().convertedDate(new Date(de), 'dd-MMM-yyyy h:mm:ss a'));
+
+
+      }
+
+    }
+
   }
   checkAnswer(options: any) {
 
@@ -150,34 +211,34 @@ export class ClientAlertsComponent implements OnInit {
             else {
               let lsAnswers = [];
               // console.log(dt2, typeof dt2.option);
-              if (typeof dt2.option === 'string') { 
+              if (typeof dt2.option === 'string') {
 
-              for (let opt of dt2?.option) {
-                // console.log(`type ${opt}`, typeof opt);
-                lsAnswers.push({
-                  "answer": opt,
-                  "count": 1
+                for (let opt of dt2?.option) {
+                  // console.log(`type ${opt}`, typeof opt);
+                  lsAnswers.push({
+                    "answer": opt,
+                    "count": 1
+                  });
+                }
+
+                lsQuestions.push({
+                  "question": dt2.question,
+                  "answer": dt2.answer,
+                  "count": 1,
+                  "options": lsAnswers
                 });
               }
-
-              lsQuestions.push({
-                "question": dt2.question,
-                "answer": dt2.answer,
-                "count": 1,
-                "options": lsAnswers
-              });
             }
           }
         }
+        // });
       }
-      // });
-    }
       // });
 
       console.log("q and a", lsQuestions);
-    this.chartData = lsQuestions;
-  });
-}
+      this.chartData = lsQuestions;
+    });
+  }
 
 
 

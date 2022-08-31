@@ -59,7 +59,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     StudentListComponent,
     ClientAlertsComponent,
     TimezonePipe,
-    ChartsComponent
+    ChartsComponent,
+    
   ],
   imports: [
     BrowserModule,
