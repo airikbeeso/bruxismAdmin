@@ -39,6 +39,7 @@ export class ClientAlertsComponent implements OnInit {
     let val = this.range.value;
     let start = new Date(val.start);
     let end = new Date(val.end);
+    const modes = [9, 12, 15, 18, 21];
 
     console.log(start.valueOf(), end.valueOf());
     if (0 > start.valueOf() && 0 > end.valueOf()) {
@@ -53,50 +54,92 @@ export class ClientAlertsComponent implements OnInit {
       ///not limit
       let collectData = [];
 
-      let user = this.users[0];
-      console.log("here data example", user.data[0]);
 
-      let curretDate = 0;
-      let data = [];
-      for (const d of user.data) {
-        if (0 === data.length) {
-          data.push(d)
-        }
-        else {
-          let found = data.find((f: any) => f.init === d.init);
-          if (undefined === found) {
-            data.push(d);
+      for (let user of this.users) {
+        // let user = this.users[0];
+        // console.log("here data example", user.data[0]);
+
+
+        let cDate = 0;
+        let cMonth = 0;
+        let cYear = 0;
+
+        let data = [];
+        for (const d of user.data) {
+          if (0 === data.length) {
+            data.push(d)
+          }
+          else {
+            let found = data.find((f: any) => f.init === d.init);
+            if (undefined === found) {
+              data.push(d);
+            }
           }
         }
-      }
 
-      let nine = [];
-      let twelve = [];
-      let fifteen = [];
-      let eighteen = [];
-      let twentyone = [];
+        let nine = [];
+        let twelve = [];
+        let fifteen = [];
+        let eighteen = [];
+        let twentyone = [];
+        // let modes = [9, 12, 15, 18, 21];
 
 
-      // console.log("last data", data);
-      let dayNumber = 1;
-      const first = new Date(data[0].init);;
-      curretDate = first.getDate();
-      for (let dt of data) {
+        for (const m of modes) {
+          // console.log("last data", data);
+          let dayNumber = 1;
+          const first = new Date(data[0].init);;
+          cDate = first.getDate();
+          // let fData = 
+          for (let dt of data.filter((f: any) => f.mode === m)) {
+            ///
+            const de = new Date(dt.init);
+            if (cDate !== de.getDate()) {
+              dayNumber += 1;
+            }
+            dt.dayNumber = dayNumber;
+            dt.nine = {};
+            dt.twelve = {};
+            dt.fifteen = {};
+            dt.eighteen = {};
+            dt.twentyone = {};
 
-        const de = new Date(dt.init);
-        if (curretDate !== de.getDate()) {
-          dayNumber += 1;
+            const gid = `${user.email}-${de.getDate()}-${de.getMonth()}-${de.getFullYear()}-${dt.mode}`;
+            let context = {
+              mode: dt.mode,
+              day: dayNumber,
+              email: user.email,
+              name: user.name,
+              userId: user.userId,
+              date: de.getDate(),
+              month: de.getMonth(),
+              year: de.getFullYear(),
+              id: gid,
+              listQuestions: dt.listQuestions
+            }
+            if (undefined === collectData.find((f: any) => f.id === gid)) {
+              collectData.push(context);
+            }
+            // console.log("collectData", collectData);
+
+
+
+
+            // console.log(`de ${dt.init}`, new Utils().convertedDate(new Date(de), 'dd-MMM-yyyy h:mm:ss a'));
+
+
+          }
+
         }
-        dt.dayNumber = dayNumber;
-        dt.nine = {};
-        dt.twelve = {};
-        dt.fifteen = {};
-        dt.eighteen = {};
-        dt.twentyone = {};
-        
-        
-        console.log(`de ${dt.init}`, new Utils().convertedDate(new Date(de), 'dd-MMM-yyyy h:mm:ss a'));
+      }//end this.user loop
 
+      const start = collectData.sort((m: any, n: any) => m.day - n.day)[0];
+      const end = collectData.sort((m: any, n: any) => n.day - m.day)[0];
+      console.log(`start  ${start.day} end ${end.day}`);
+
+      for (const m of modes) {
+        const one = collectData.filter((f: any) => f.email === 'airik@outlook.com' && f.mode === m);
+        console.log("selected", one);
 
       }
 
