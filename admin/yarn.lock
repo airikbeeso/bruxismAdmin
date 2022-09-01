@@ -2444,6 +2444,11 @@ ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+angular-csv-ext@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/angular-csv-ext/-/angular-csv-ext-1.0.5.tgz#ea8807e27cccd3b81780a3657f2d74e59a7e7520"
+  integrity sha512-KBymMa7vVW0FlQr4AX6rRijyL9uak4gvrdc706TEDFLKNzE/UjB6dl/GqPVd72yV89uIRuT87kBcbNEc8HMNtQ==
+
 ansi-colors@4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.3.tgz#37611340eb2243e70cc604cad35d63270d48781b"

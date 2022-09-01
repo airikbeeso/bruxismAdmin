@@ -40,7 +40,8 @@ export class ClientAlertsComponent implements OnInit {
     let start = new Date(val.start);
     let end = new Date(val.end);
     const modes = [9, 12, 15, 18, 21];
-
+    let collectData = [];
+    let collectData2 = [];
     console.log(start.valueOf(), end.valueOf());
     if (0 > start.valueOf() && 0 > end.valueOf()) {
       ///limit by date range
@@ -52,7 +53,7 @@ export class ClientAlertsComponent implements OnInit {
     }
     else {
       ///not limit
-      let collectData = [];
+
 
 
       for (let user of this.users) {
@@ -137,13 +138,25 @@ export class ClientAlertsComponent implements OnInit {
       const end = collectData.sort((m: any, n: any) => n.day - m.day)[0];
       console.log(`start  ${start.day} end ${end.day}`);
 
-      for (const m of modes) {
-        const one = collectData.filter((f: any) => f.email === 'airik@outlook.com' && f.mode === m);
-        console.log("selected", one);
+      for (let user of this.users) {
+        for (const m of modes) {
+          for (var i = start.day; i <= end.day; i++) {
+            const one = collectData.filter((f: any) => f.email === user.email && f.mode === m && f.day === i);
+            if (undefined !== one && one.length > 0) {
 
+              const gid2 = `${user.email}-${one[0].date}-${one[0].month}-${one[0].year}-${one[0].year}-${one[0].mode}`;
+              if (undefined === collectData2.find((f: any) => f.id === gid2)) {
+                collectData2.push(one);
+              }
+            }
+
+          }
+        }
       }
 
+
     }
+    console.log(`final`, collectData2);
 
   }
   checkAnswer(options: any) {
