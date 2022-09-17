@@ -1,21 +1,20 @@
-
 <div>
     <mat-form-field appearance="fill">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-          <input matStartDate formControlName="start" placeholder="Start date">
-          <input matEndDate formControlName="end" placeholder="End date">
+            <input matStartDate formControlName="start" placeholder="Start date">
+            <input matEndDate formControlName="end" placeholder="End date">
         </mat-date-range-input>
         <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
-      
+
         <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
         <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-      </mat-form-field>
-      
-      <!-- <p>Selected range: {{range.value | json}}</p> -->
-      
+    </mat-form-field>
+
+    <!-- <p>Selected range: {{range.value | json}}</p> -->
+
 </div>
 <div>
 
@@ -62,8 +61,76 @@
 
 </div>
 <div *ngFor="let item of chartData" class="m-5" style="clear:both; display: grid;">
-    <br/>
+    <br />
     <app-charts [data]="item" class="m5"></app-charts>
 
-    <hr/><br/>
+    <hr /><br />
+</div>
+
+<table class="table">
+    <thead>
+        <th>
+            email
+        </th>
+        <th>
+            question 1
+        </th>
+        <th>
+            question 2
+        </th>
+        <th>
+            question 3
+        </th>
+        <th>
+            question 4
+        </th>
+        <th>
+            question 5
+        </th>
+        <th>
+            Day
+        </th>
+        <th>
+            Hour
+        </th>
+        <th>
+            Date
+        </th>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of printCol">
+            <td>
+                {{item.email}}
+            </td>
+            <td>
+                {{item.listQuestions[0].answer}}
+            </td>
+            <td>
+                {{item.listQuestions[1].answer}}
+            </td>
+            <td>
+                {{item.listQuestions[2].answer}}
+            </td>
+            <td>
+                {{item.listQuestions[3].answer}}
+            </td>
+            <td>
+                {{item.listQuestions[4]?.answer}}
+            </td>
+            <td>
+                {{item.day}}
+            </td>
+            <td>
+                {{item.mode}}
+            </td>
+            <td>
+                {{item.year}}-{{item.month}}-{{item.date}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngFor="let item of printCol">
+
 </div>

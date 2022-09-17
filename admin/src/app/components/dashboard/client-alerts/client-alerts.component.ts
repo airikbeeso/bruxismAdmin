@@ -13,7 +13,7 @@ import { Utils } from '@app/helpers/utils';
 })
 export class ClientAlertsComponent implements OnInit {
   p: number = 1;
-
+  printCol = [];
   hideWhenNoStudent: boolean = false;
   noData: boolean = false;
   preLoader: boolean = true;
@@ -41,8 +41,10 @@ export class ClientAlertsComponent implements OnInit {
     let end = new Date(val.end);
     const modes = [9, 12, 15, 18, 21];
     let collectData = [];
-    let collectData2 = [];
+    let collectData2: any[] = [];
     console.log(start.valueOf(), end.valueOf());
+    let start_day = 0;
+    let end_day = 0;
     if (0 > start.valueOf() && 0 > end.valueOf()) {
       ///limit by date range
       let user = this.users[0];
@@ -83,6 +85,7 @@ export class ClientAlertsComponent implements OnInit {
         let fifteen = [];
         let eighteen = [];
         let twentyone = [];
+        this.printCol = [];
         // let modes = [9, 12, 15, 18, 21];
 
 
@@ -136,7 +139,10 @@ export class ClientAlertsComponent implements OnInit {
 
       const start = collectData.sort((m: any, n: any) => m.day - n.day)[0];
       const end = collectData.sort((m: any, n: any) => n.day - m.day)[0];
-      console.log(`start  ${start.day} end ${end.day}`);
+      console.log(`start  ${start?.day} end ${end?.day}`);
+      start_day = start?.day;
+      end_day = end?.day;
+
 
       for (let user of this.users) {
         for (const m of modes) {
@@ -146,7 +152,7 @@ export class ClientAlertsComponent implements OnInit {
 
               const gid2 = `${user.email}-${one[0].date}-${one[0].month}-${one[0].year}-${one[0].year}-${one[0].mode}`;
               if (undefined === collectData2.find((f: any) => f.id === gid2)) {
-                collectData2.push(one);
+                collectData2.push(one[0]);
               }
             }
 
@@ -157,6 +163,28 @@ export class ClientAlertsComponent implements OnInit {
 
     }
     console.log(`final`, collectData2);
+
+    if (collectData2.length > 0) {
+
+ 
+      console.log(`final`, start_day, end_day);
+
+
+      for (let i = start_day; i <= end_day; i++) {
+        for (let m of modes) {
+          for (let col of collectData2.filter((f: any) => f?.day === i && f?.mode === m)) {
+
+            this.printCol.push(col);
+
+          }
+        }
+      }
+      console.log("printing", this.printCol);
+
+
+
+    }
+
 
   }
   checkAnswer(options: any) {
