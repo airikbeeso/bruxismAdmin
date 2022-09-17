@@ -39,6 +39,8 @@ export class ClientAlertsComponent implements OnInit {
     let val = this.range.value;
     let start = new Date(val.start);
     let end = new Date(val.end);
+    let startCol = 0;
+    let endCol = 0;
     const modes = [9, 12, 15, 18, 21];
     let collectData = [];
     let collectData2: any[] = [];
@@ -94,7 +96,7 @@ export class ClientAlertsComponent implements OnInit {
           let dayNumber = 1;
           const first = new Date(data[0].init);;
           cDate = first.getDate();
-          // let fData = 
+          // let fData =
           for (let dt of data.filter((f: any) => f.mode === m)) {
             ///
             const de = new Date(dt.init);
@@ -163,6 +165,57 @@ export class ClientAlertsComponent implements OnInit {
 
     }
     console.log(`final`, collectData2);
+    let header = [];
+    for (let i = 0; i < (collectData2.length * 5); i++) {
+      if (0 === i) {
+        header.push("No");
+      }
+      else if (1 === i) {
+        header.push("Name");
+      }
+      else {
+        header.push(" ");
+      }
+    }
+    let header2 = [];
+    let day = 1;
+    for (let i = 0; i < (collectData2.length * 5); i++) {
+      if (0 === i) {
+        header2.push(" ");
+      }
+      else if (1 === i) {
+        header2.push(" ");
+      }
+      else {
+
+        if (i === 13) {
+          header2.push(`Hari ${day}`); day++;
+
+        }
+        else if (i > 13) {
+          if (i % 15 === 0) {
+            header2.push(`Hari ${day}`); day++;
+
+          }
+          else {
+            header2.push(" ");
+
+          }
+        }
+
+
+      }
+    }
+
+
+    let html = header.join(",") + "\n";
+    html += header2.join(",") + "\n";
+    let colData = [];
+
+    for (let col of collectData2) {
+
+
+    }
 
     if (collectData2.length > 0) {
 
