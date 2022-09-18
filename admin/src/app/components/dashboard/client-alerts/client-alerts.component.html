@@ -22,7 +22,7 @@
 </div>
 
 
-<div class="list mt-3 pt-2">
+<div class="list mt-3 pt-2 d-none">
     <div *ngFor="let item of users" class="main mt-2 mb-2">
 
 
@@ -66,16 +66,22 @@
 
     <hr /><br />
 </div>
+<div *ngIf="collectQuestions.length > 0" class="note">
+    <div *ngFor="let item of collectQuestions, let idx = index">
+       <span>(Q{{(idx + 1)}}) </span> <span>{{item}}</span>
+    </div>
+</div>
+<button  *ngIf="collectQuestions.length > 0" mat-raised-button color="primary" [cdkCopyToClipboard]="value">Copy to clipboard</button>
 
-<table class="table">
+<table class="table" *ngIf="collectQuestions.length > 0" id="tbl_q">
     <thead>
         <th>
-            email
+            Email
         </th>
-        <th>
-            question 1
+        <th *ngFor="let item of collectQuestions, let idx2 = index">
+            Q {{(idx2 + 1)}}
         </th>
-        <th>
+        <!-- <th>
             question 2
         </th>
         <th>
@@ -86,7 +92,7 @@
         </th>
         <th>
             question 5
-        </th>
+        </th> -->
         <th>
             Day
         </th>
@@ -103,10 +109,10 @@
             <td>
                 {{item.email}}
             </td>
-            <td>
-                {{item.listQuestions[0].answer}}
+            <td *ngFor="let item2 of collectQuestions, let idx = index" title="{{item2}}">
+                {{item.listQuestions[idx].answer}}
             </td>
-            <td>
+            <!-- <td>
                 {{item.listQuestions[1].answer}}
             </td>
             <td>
@@ -117,7 +123,7 @@
             </td>
             <td>
                 {{item.listQuestions[4]?.answer}}
-            </td>
+            </td> -->
             <td>
                 {{item.day}}
             </td>

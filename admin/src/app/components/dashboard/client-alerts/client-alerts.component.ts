@@ -5,6 +5,7 @@ import { Alert } from '@app/shared/alert';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Utils } from '@app/helpers/utils';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-client-alerts',
@@ -20,6 +21,9 @@ export class ClientAlertsComponent implements OnInit {
   Alerts: any = [];
   users: any = [];
   chartData: any;
+  collectQuestions: string[] = [];
+  value: string = ""
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -33,8 +37,56 @@ export class ClientAlertsComponent implements OnInit {
     this.loadAlerts();
     // console.log("Data", data);
   }
+  exportTableToCSV() {
+    var csv = [];
+    var rows = document.querySelectorAll("table tbody tr,table thead tr");
 
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td,th");
+
+      for (var j = 0; j < cols.length; j++)
+        row.push(cols[j].innerHTML);
+
+      csv.push(row.join(","));
+    }
+
+    this.value = csv.join("\n");
+    // Download CSV file
+  }
+
+  tableToCSV() {
+
+    // Variable to store the final csv data
+    var csv_data = [];
+
+    // Get each row data
+    var rows = document.getElementsByTagName('tr');
+    for (var i = 0; i < rows.length; i++) {
+
+      // Get each column data
+      var cols = rows[i].querySelectorAll('td,th');
+
+      // Stores each csv row data
+      var csvrow = [];
+      for (var j = 0; j < cols.length; j++) {
+
+        // Get the text data of each cell of
+        // a row and push it to csvrow
+        csvrow.push(cols[j].innerHTML);
+      }
+
+      // Combine each column value with comma
+      csv_data.push(csvrow.join(","));
+    }
+    // combine each row data with new line character
+    this.value = csv_data.join('\n');
+
+    /* We will use this function later to download
+    the data in a csv file downloadCSVFile(csv_data);
+    */
+  }
   exportData() {
+
 
     let val = this.range.value;
     let start = new Date(val.start);
@@ -145,7 +197,6 @@ export class ClientAlertsComponent implements OnInit {
       start_day = start?.day;
       end_day = end?.day;
 
-
       for (let user of this.users) {
         for (const m of modes) {
           for (var i = start.day; i <= end.day; i++) {
@@ -155,6 +206,18 @@ export class ClientAlertsComponent implements OnInit {
               const gid2 = `${user.email}-${one[0].date}-${one[0].month}-${one[0].year}-${one[0].year}-${one[0].mode}`;
               if (undefined === collectData2.find((f: any) => f.id === gid2)) {
                 collectData2.push(one[0]);
+                if (this.collectQuestions.length === 0) {
+                  for (let q of one[0].listQuestions) {
+                    this.collectQuestions.push(q.question);
+                  }
+                }
+                else {
+                  for (let q of one[0].listQuestions) {
+                    if (null === this.collectQuestions.find((f) => f === q.question)) {
+                      this.collectQuestions.push(q.question);
+                    }
+                  }
+                }
               }
             }
 
@@ -219,7 +282,7 @@ export class ClientAlertsComponent implements OnInit {
 
     if (collectData2.length > 0) {
 
- 
+
       console.log(`final`, start_day, end_day);
 
 
@@ -233,13 +296,45 @@ export class ClientAlertsComponent implements OnInit {
         }
       }
       console.log("printing", this.printCol);
+      console.log("column question", this.collectQuestions);
+      // this.exportTableToCSV()
+      var options = {
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        showLabels: true,
+        showTitle: true,
+        title: 'Your title',
+        useBom: true,
+        noDownload: true,
+        headers: ["Email", "Q1", "Q2", "Q3", "Q4", "Day", "Hour", "Date"]
+      };
+      let csvData = [];
 
-
+      for (let col of this.printCol) {
+        csvData.push({
+          email: col.email,
+          q1: col.listQuestions[0].answer,
+          q2: col.listQuestions[1].answer,
+          q3: col.listQuestions[2].answer,
+          q4: col.listQuestions[3].answer,
+          day: col.day,
+          hour: col.mode,
+          date: `${col.year}-${col.month}-${col.date}`
+        });
+      }
+      new ngxCsv(csvData, "bruxismData.csv", options);
 
     }
 
 
+
+
+    // setTimeout(() => this.tableToCSV(), 1000);
+
   }
+
+
   checkAnswer(options: any) {
 
   }
@@ -381,3 +476,5 @@ export class ClientAlertsComponent implements OnInit {
 
 
 }
+
+

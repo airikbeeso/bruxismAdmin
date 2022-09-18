@@ -28,8 +28,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -86,6 +87,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     FontAwesomeModule,
     MatButtonModule,
     MatExpansionModule,
+    ClipboardModule,
     provideAnalytics(() => getAnalytics())
   ],
   providers: [
