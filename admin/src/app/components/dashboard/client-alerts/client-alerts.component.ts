@@ -304,7 +304,7 @@ export class ClientAlertsComponent implements OnInit {
         decimalseparator: '.',
         showLabels: true,
         showTitle: true,
-        title: 'Your title',
+        title: 'Bruxism',
         useBom: true,
         noDownload: true,
         headers: ["Email", "Q1", "Q2", "Q3", "Q4", "Day", "Hour", "Date"]
@@ -323,8 +323,8 @@ export class ClientAlertsComponent implements OnInit {
           date: `${col.year}-${col.month}-${col.date}`
         });
       }
-      new ngxCsv(csvData, "bruxismData.csv", options);
-
+      let data: ngxCsv = new ngxCsv(csvData, "bruxismData.csv", options);
+      this.value = data.getCsv();
     }
 
 
