@@ -213,7 +213,7 @@ export class ClientAlertsComponent implements OnInit {
                 }
                 else {
                   for (let q of one[0].listQuestions) {
-                    if (null === this.collectQuestions.find((f) => f === q.question)) {
+                    if (undefined === this.collectQuestions.find((f) => f === q.question)) {
                       this.collectQuestions.push(q.question);
                     }
                   }
@@ -307,17 +307,33 @@ export class ClientAlertsComponent implements OnInit {
         title: 'Bruxism',
         useBom: true,
         noDownload: true,
-        headers: ["Email", "Q1", "Q2", "Q3", "Q4", "Day", "Hour", "Date"]
+        headers: ["Email", "Name", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Day", "Hour", "Date"]
       };
       let csvData = [];
 
       for (let col of this.printCol) {
+        let l = col.listQuestions.length;
+        let cl = [];
+        this.collectQuestions.forEach((dt, idx) => {
+          let cd = col.listQuestions.find((f) => f.question === dt)
+          if (undefined !== cd) {
+            cl.push({
+              idx: idx,
+              a: cd.answer
+            });
+          }
+        });
+        console.log("u", cl.find((f2) => f2.idx === 5));
+
         csvData.push({
           email: col.email,
-          q1: col.listQuestions[0].answer,
-          q2: col.listQuestions[1].answer,
-          q3: col.listQuestions[2].answer,
-          q4: col.listQuestions[3].answer,
+          name: col.name,
+          q1: undefined !== cl.find((f2) => f2.idx === 0) ? cl.find((f2) => f2.idx === 0).a : "",
+          q2: undefined !== cl.find((f2) => f2.idx === 1) ? cl.find((f2) => f2.idx === 1).a : "",
+          q3: undefined !== cl.find((f2) => f2.idx === 2) ? cl.find((f2) => f2.idx === 2).a : "",
+          q4: undefined !== cl.find((f2) => f2.idx === 3) ? cl.find((f2) => f2.idx === 3).a : "",
+          q5: undefined !== cl.find((f2) => f2.idx === 4) ? cl.find((f2) => f2.idx === 4).a : "",
+          q6: undefined !== cl.find((f2) => f2.idx === 5) ? cl.find((f2) => f2.idx === 5).a : "",
           day: col.day,
           hour: col.mode,
           date: `${col.year}-${col.month}-${col.date}`

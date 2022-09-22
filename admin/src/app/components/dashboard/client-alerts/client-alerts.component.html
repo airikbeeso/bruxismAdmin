@@ -62,7 +62,7 @@
 </div>
 <div *ngFor="let item of chartData" class="m-5" style="clear:both; display: grid;">
     <br />
-    <app-charts [data]="item" class="m5"></app-charts>
+    <!-- <app-charts [data]="item" class="m5"></app-charts> -->
 
     <hr /><br />
 </div>
@@ -77,6 +77,9 @@
     <thead>
         <th>
             Email
+        </th>
+        <th>
+            Name
         </th>
         <th *ngFor="let item of collectQuestions, let idx2 = index">
             Q {{(idx2 + 1)}}
@@ -109,8 +112,11 @@
             <td>
                 {{item.email}}
             </td>
+            <td>
+                {{item.name}}
+            </td>
             <td *ngFor="let item2 of collectQuestions, let idx = index" title="{{item2}}">
-                {{item.listQuestions[idx].answer}}
+                {{item.listQuestions[idx]?.answer}}
             </td>
             <!-- <td>
                 {{item.listQuestions[1].answer}}
