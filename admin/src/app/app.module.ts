@@ -66,6 +66,7 @@ import { DataTablesModule } from "angular-datatables";
   ],
   imports: [
     BrowserModule,
+    DataTablesModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
@@ -89,7 +90,6 @@ import { DataTablesModule } from "angular-datatables";
     MatButtonModule,
     MatExpansionModule,
     ClipboardModule,
-    DataTablesModule,
     provideAnalytics(() => getAnalytics())
   ],
   providers: [

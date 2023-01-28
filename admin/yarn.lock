@@ -2103,7 +2103,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/datatables.net@^1.10.21":
+"@types/datatables.net@^1.10.24":
   version "1.10.24"
   resolved "https://registry.yarnpkg.com/@types/datatables.net/-/datatables.net-1.10.24.tgz#8b432218d72b012448dbf18ce18ee900a3f2f1ec"
   integrity sha512-Qb82/7Gn0bU36YLiv0MdaqKzhTLfRO9qPvFdkW0miQ6ATMG47aoPn2r//zTvGd3oPSt+Lzp1HSsjP6rZRuki8g==
@@ -2167,7 +2167,7 @@
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.10.7.tgz#57b8c6892fa2f4696fbb56851cd99649c781376c"
   integrity sha512-brLuHhITMz4YV2IxLstAJtyRJgtWfLqFKiqiJFvFWMSmydpAmn42CE4wfw7ywkSk02UrufhtzipTcehk8FctoQ==
 
-"@types/jquery@*", "@types/jquery@^3.5.9":
+"@types/jquery@*", "@types/jquery@^3.5.16":
   version "3.5.16"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.16.tgz#632131baf30951915b0317d48c98e9890bdf051d"
   integrity sha512-bsI7y4ZgeMkmpG9OM710RRzDFp+w4P1RGiIt30C1mSBT+ExCleeh4HObwgArnDFELmRrOpXgSYN9VF1hj+f1lw==
@@ -2503,7 +2503,7 @@ angular-csv-ext@^1.0.5:
   resolved "https://registry.yarnpkg.com/angular-csv-ext/-/angular-csv-ext-1.0.5.tgz#ea8807e27cccd3b81780a3657f2d74e59a7e7520"
   integrity sha512-KBymMa7vVW0FlQr4AX6rRijyL9uak4gvrdc706TEDFLKNzE/UjB6dl/GqPVd72yV89uIRuT87kBcbNEc8HMNtQ==
 
-angular-datatables@15.0.0:
+angular-datatables@^15.0.0:
   version "15.0.0"
   resolved "https://registry.yarnpkg.com/angular-datatables/-/angular-datatables-15.0.0.tgz#947e65a94b1a318e9e4dd178685190f84c64ac10"
   integrity sha512-tmg3Q6w5h6p1KBlNHqPhKKGvzbGwFDT9RZGXw1pZXGYMiP9Mb1Y4cRPq6so244RLwzDQdlnsC1jsLwP3vzoIdw==
@@ -3364,7 +3364,7 @@ datatables.net-bs5@^1.11.3:
     datatables.net ">=1.12.1"
     jquery ">=1.7"
 
-datatables.net-dt@^1.11.3:
+datatables.net-dt@^1.13.1:
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-1.13.1.tgz#c3e31c8ae85dabe6895e740f6fbe0ed2e8276c39"
   integrity sha512-J5ul/Y+Hpyfh8y02DKwgbmUij4e4R6bstnx4iYvY7FV2b2XuCP0Qow/Uuc0gtxDHSz2bTsoeRHqg4teoGftVDg==
@@ -3372,7 +3372,7 @@ datatables.net-dt@^1.11.3:
     datatables.net ">=1.12.1"
     jquery ">=1.7"
 
-datatables.net@>=1.12.1, datatables.net@^1.11.3:
+datatables.net@>=1.12.1, datatables.net@^1.13.1:
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.13.1.tgz#199f7cb63f4536c135e161f95254212835a1c130"
   integrity sha512-cX5dDHsbVdLLYKsWOSE0MvuGUcV88zU5dZ/taK2puJV6F9Fw0CFsP3+U/kr+qpDSFOBLWISRyM4Q9wWWovPTNg==
@@ -4730,7 +4730,7 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery@>=1.7, jquery@^3.6.0:
+jquery@>=1.7, jquery@^3.6.3:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.3.tgz#23ed2ffed8a19e048814f13391a19afcdba160e6"
   integrity sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==
