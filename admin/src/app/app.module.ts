@@ -45,6 +45,7 @@ import { ClientAlertsComponent } from './components/dashboard/client-alerts/clie
 import { TimezonePipe } from './helpers/timezone.pipe';
 import { ChartsComponent } from './components/dashboard/charts/charts.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DataTablesModule } from "angular-datatables";
 
 
 @NgModule({
@@ -61,7 +62,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ClientAlertsComponent,
     TimezonePipe,
     ChartsComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -88,6 +89,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatButtonModule,
     MatExpansionModule,
     ClipboardModule,
+    DataTablesModule,
     provideAnalytics(() => getAnalytics())
   ],
   providers: [

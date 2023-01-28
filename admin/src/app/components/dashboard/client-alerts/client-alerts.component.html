@@ -73,7 +73,7 @@
 </div>
 <button  *ngIf="collectQuestions.length > 0" mat-raised-button color="primary" [cdkCopyToClipboard]="value">Copy to clipboard</button>
 
-<table class="table" *ngIf="collectQuestions.length > 0" id="tbl_q">
+<table datatable class="row-border hover"  *ngIf="collectQuestions.length > 0" id="tbl_q">
     <thead>
         <th>
             Email
@@ -136,8 +136,11 @@
             <td>
                 {{item.mode}}
             </td>
-            <td>
-                {{item.year}}-{{item.month}}-{{item.date}}
+            <td [innerHTML]="convertToDateString(item.timestamp)">
+                <!-- {{item.year}}-{{item.month+1}}-{{item.date}} -->
+
+
+
             </td>
         </tr>
     </tbody>
@@ -146,3 +149,5 @@
 <div *ngFor="let item of printCol">
 
 </div>
+
+

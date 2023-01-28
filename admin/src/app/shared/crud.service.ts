@@ -6,6 +6,7 @@ import {
   AngularFireObject,
 } from '@angular/fire/compat/database';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -59,11 +60,17 @@ export class CrudService {
     this.studentRef.remove();
   }
 
-  GetClientAlerts()
-  {
-    
-    return this.afs.collection("alerts", 
-    ref=>ref.orderBy('timestamp')).snapshotChanges();
-      
+  GetClientAlerts() {
+
+    return this.afs.collection("alerts",
+      ref => ref.orderBy('timestamp')).snapshotChanges();
+
+  }
+  GetClientAlertsFilterDate(start: number, end: number) {
+
+
+    return this.afs.collection("alerts",
+      ref => ref.where("timestamp", ">", start).where("timestamp", "<=", end).orderBy('timestamp')).snapshotChanges();
+
   }
 }
