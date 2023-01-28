@@ -24,10 +24,13 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatButtonModule } from '@angular/material/button';
+// import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import {MatButtonModule} from '@angular/material/button';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';

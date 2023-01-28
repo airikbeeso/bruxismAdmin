@@ -15,6 +15,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 export class ClientAlertsComponent implements OnInit {
   p: number = 1;
   printCol = [];
+  dtTbl = [];
   hideWhenNoStudent: boolean = false;
   noData: boolean = false;
   preLoader: boolean = true;
@@ -23,7 +24,8 @@ export class ClientAlertsComponent implements OnInit {
   chartData: any;
   collectQuestions: string[] = [];
   value: string = "";
-
+  tbl_option: any;
+  showTbl: boolean = false;
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -89,6 +91,8 @@ export class ClientAlertsComponent implements OnInit {
   }
   exportData() {
 
+    this.showTbl = false;
+    this.tbl_option = {};
 
 
     let val = this.range.value;
@@ -150,6 +154,7 @@ export class ClientAlertsComponent implements OnInit {
           let eighteen = [];
           let twentyone = [];
           this.printCol = [];
+          this.dtTbl = [];
           // let modes = [9, 12, 15, 18, 21];
 
 
@@ -194,17 +199,12 @@ export class ClientAlertsComponent implements OnInit {
                 collectData.push(context);
               }
               // console.log("collectData", collectData);
-
-
-
-
               // console.log(`de ${dt.init}`, new Utils().convertedDate(new Date(de), 'dd-MMM-yyyy h:mm:ss a'));
-
-
             }
 
           }
-        }//end this.user loop
+        }
+        //end this.user loop
 
         const start = collectData.sort((m: any, n: any) => m.day - n.day)[0];
         const end = collectData.sort((m: any, n: any) => n.day - m.day)[0];
@@ -297,6 +297,7 @@ export class ClientAlertsComponent implements OnInit {
 
 
           console.log(`final`, start_day, end_day);
+          let columns = [];
 
 
           for (let i = start_day; i <= end_day; i++) {
@@ -309,12 +310,121 @@ export class ClientAlertsComponent implements OnInit {
                 //   && col.date <= end.getDate() && col.month <= end.getMonth() && col.year <= end.getFullYear())
                 this.printCol.push(col);
 
+                this.dtTbl.push({
+                  email: col.email,
+                  name: col.name,
+                  q1: col.listQuestions[0]?.answer,
+                  q2: col.listQuestions[1]?.answer,
+                  q3: col.listQuestions[2]?.answer,
+                  q4: col.listQuestions[3]?.answer,
+                  q5: col.listQuestions[4]?.answer,
+                  day: col.day,
+                  mode: col.mode,
+                  date: this.convertToDateString(col.timestamp)
+
+                });
+
               }
             }
           }
-          console.log("printing", this.printCol);
-          console.log("column question", this.collectQuestions);
+          // console.log("printing", this.printCol);
+          // console.log("column question", this.collectQuestions);
           // this.exportTableToCSV()
+
+          /*
+           let context = {
+                mode: dt.mode,
+                day: dayNumber,
+                email: user.email,
+                name: user.name,
+                userId: user.userId,
+                date: de.getDate(),
+                month: de.getMonth(),
+                year: de.getFullYear(),
+                id: genId,
+                listQuestions: dt.listQuestions,
+                timestamp: dt.timestamp
+              };
+
+                "draw": 0,
+  "recordsTotal": 258,
+  "recordsFiltered": 258,
+  "data": [
+    {
+
+        email: col.email,
+                  name: col.name,
+                  q1: col.listQuestions[0]?.answer,
+                  q2: col.listQuestions[1]?.answer,
+                  q3: col.listQuestions[2]?.answer,
+                  q4: col.listQuestions[3]?.answer,
+                  q5: col.listQuestions[4]?.answer,
+                  day: col.day,
+                  mode: col.mode,
+                  date: this.convertToDateString(col.timestamp)
+
+          */
+
+          this.tbl_option = {
+            // ajax: {
+            //   draw: 0,
+            //   recordsTotal: this.printCol.length,
+            //   recordsFiltered: this.printCol.length,
+            //   data: this.dtTbl
+            // },
+            pagingType: 'full_numbers',
+            // pageLength: 2,
+            // serverSide: true,
+            // processing: true,
+            draw: 0,
+            recordsTotal: this.printCol.length,
+            recordsFiltered: this.printCol.length,
+            data: this.dtTbl,
+            columns: [
+              {
+                title: "Email",
+                data: "email"
+              },
+              {
+                title: "Name",
+                data: "name"
+              },
+
+              {
+                title: "Q1",
+                data: "q1"
+              },
+              {
+                title: "Q2",
+                data: "q2"
+              }, {
+                title: "Q3",
+                data: "q3"
+              }, {
+                title: "Q4",
+                data: "q4"
+              }, {
+                title: "Q5",
+                data: "q5"
+              }, {
+                title: "Day",
+                data: "day"
+              }, {
+                title: "Mode",
+                data: "mode"
+              },
+
+              {
+                title: "Date",
+                data: "date"
+              }
+
+
+            ]
+
+          };
+          this.showTbl = true;
+
           var options = {
             fieldSeparator: ',',
             quoteStrings: '"',
@@ -393,7 +503,7 @@ export class ClientAlertsComponent implements OnInit {
     var day = date.getDate().toString();
     day = day.length > 1 ? day : '0' + day;
 
-    return year +  '-' + month + '-' +  day;
+    return year + '-' + month + '-' + day;
     // return month + '/' + day + '/' + year;
 
   }

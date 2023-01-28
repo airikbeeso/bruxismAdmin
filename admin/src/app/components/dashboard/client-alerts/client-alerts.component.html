@@ -73,7 +73,7 @@
 </div>
 <button  *ngIf="collectQuestions.length > 0" mat-raised-button color="primary" [cdkCopyToClipboard]="value">Copy to clipboard</button>
 
-<table class="row-border hover"  *ngIf="collectQuestions.length > 0" id="tbl_q">
+<table class="row-border hover d-none" *ngIf="collectQuestions.length > 0" id="tbl_q">
     <thead>
         <th>
             Email
@@ -146,8 +146,10 @@
     </tbody>
 </table>
 
-<div *ngFor="let item of printCol">
+<!-- <div *ngFor="let item of printCol">
 
+</div> -->
+<div class="row">
+  <table *ngIf="showTbl" datatable [dtOptions]="tbl_option" class="row-border hover mt-5"></table>
 </div>
-
 
