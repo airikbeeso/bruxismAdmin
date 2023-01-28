@@ -71,7 +71,9 @@
        <span>(Q{{(idx + 1)}}) </span> <span>{{item}}</span>
     </div>
 </div>
-<button  *ngIf="collectQuestions.length > 0" mat-raised-button color="primary" [cdkCopyToClipboard]="value">Copy to clipboard</button>
+<button
+class="mt-5"
+*ngIf="collectQuestions.length > 0" mat-raised-button color="primary" [cdkCopyToClipboard]="value">Copy to clipboard</button>
 
 <table class="row-border hover d-none" *ngIf="collectQuestions.length > 0" id="tbl_q">
     <thead>
@@ -149,7 +151,7 @@
 <!-- <div *ngFor="let item of printCol">
 
 </div> -->
-<div class="row">
+<div class="row  mt-5 pt-5">
   <table *ngIf="showTbl" datatable [dtOptions]="tbl_option" class="row-border hover mt-5"></table>
 </div>
 
