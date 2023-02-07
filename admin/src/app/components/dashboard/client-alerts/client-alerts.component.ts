@@ -39,6 +39,7 @@ export class ClientAlertsComponent implements OnInit {
   ngOnInit(): void {
     // this.loadAlerts();
     // console.log("Data", data);
+    // this.crudApi.MoveAlertsToAlert2();
 
   }
   exportTableToCSV() {

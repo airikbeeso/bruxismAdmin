@@ -6,6 +6,7 @@ import {
   AngularFireObject,
 } from '@angular/fire/compat/database';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Alert } from '@app/shared/alert';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,10 @@ export class CrudService {
 
   studentsRef: AngularFireList<any>;
   studentRef: AngularFireObject<any>;
+
+  alertRef: AngularFireObject<any>;
+
+
   constructor(private db: AngularFireDatabase, public afs: AngularFirestore) { }
   // Create Student
   AddStudent(student: Student) {
@@ -72,5 +77,24 @@ export class CrudService {
     return this.afs.collection("alerts",
       ref => ref.where("timestamp", ">", start).where("timestamp", "<=", end).orderBy('timestamp')).snapshotChanges();
 
+  }
+
+  MoveAlertsToAlert2() {
+    this.afs.collection("alerts",
+      ref => ref.orderBy('timestamp')).snapshotChanges().forEach((doc)=>{
+        doc.map((e)=>{
+          let data = {
+            id: e.payload.doc.id,
+            ...(e.payload.doc.data() as Alert),
+          }
+
+          // console.log("Data", data);
+
+          this.afs.collection("alerts2").add(data).then(()=>console.log("done"));
+
+
+
+        });
+      })
   }
 }
